@@ -487,7 +487,6 @@ def fix_statsceb_nan_data_filename(data_root: str, filename: str):
         return filename
 
 def multi_table_dataset_csv_reader(data_root: str, dc: dict, table_th_joinkeys: dict):
-    #data_root = '/home/liujw/neurocard-master/neurocard/datasets/job'
     dataset = {}
     for i in dc:
         # print(i, end=';')
