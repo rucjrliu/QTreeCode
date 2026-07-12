@@ -19,8 +19,7 @@ sys.path.append(str(settings.PROJECT_PATH / 'scripts'))
 from Learning.mqspnJoinLearningNew import learn_multi_QSPN
 from Inference.mqspnJoinInferenceNew import load_multi_QSPN, CE_multi_QSPN_opt
 from Structure.mqspnJoinReader import multi_table_workload_csv_reader_trainset, multi_table_workload_csv_reader_testset, multi_table_workload_extract, init_p
-# from Learning.qspnJoinInference import mqspn_probability, DETAIL_PERF
-# from Learning.qspnJoinBase import SHOW_VE, set_FJBuckets_K
+
 
 DEBUG_ERR = False
 DETAIL_PERF = False
