@@ -34,7 +34,7 @@ Dataset: GAS/Forest/Power
     python scripts/run_qspn.py --dataset forest10 --inference
     python scripts/run_qspn.py --dataset power7 --inference
 
-The result will be outputed to the console, including Model Size, Mean Inference Time, Q-error of each query, 50th/90th/95th/99th/Max/Mean Q-error of CardEst on the workload.
+The result will be output to the console, including Model Size, Mean Inference Time, Q-error of each query, 50th/90th/95th/99th/Max/Mean Q-error of CardEst on the workload.
 
 You can also construct *QTree* models by yourself, like
 
@@ -42,7 +42,7 @@ You can also construct *QTree* models by yourself, like
     python scripts/run_qspn.py --dataset forest10 --train
     python scripts/run_qspn.py --dataset power7 --train
 
-The Model Construction Time and Model Size will be outputed to the console. And the *QTree* model file: *'models/single_tables/qspn/qspn_5.0_0.1_0.3_QSplit_\{gas/forest10/power7\}_template_0.5_0.5.pkl'* will be overwritten by the new constructed *QTree* model.
+The Model Construction Time and Model Size will be output to the console. And the *QTree* model file: *'models/single_tables/qspn/qspn_5.0_0.1_0.3_QSplit_\{gas/forest10/power7\}_template_0.5_0.5.pkl'* will be overwritten by the new constructed *QTree* model.
 
 ### QTree Update CardEst
 
@@ -130,7 +130,7 @@ For a new single-table workload for dataset 'sgtbdat', supposing whose name is '
 
 **File 'data/sgtbdat/queries/user/test_query_sc.npy':**
 
-The content of this file is a 3-dimensonal numpy array 'arr_query'. The first value of the shape is equal to the number of queries in this workload, representing each query. The second value of the shape is equal the number of data columns, represent query predicate on each column. The third value of the shape is $2$, representing the lower bound constraint and upper bound constraint of this query predicate on this column. Afterwards, we create and read this file by:
+The content of this file is a 3-dimensional numpy array 'arr_query'. The first value of the shape is equal to the number of queries in this workload, representing each query. The second value of the shape is equal the number of data columns, represent query predicate on each column. The third value of the shape is $2$, representing the lower bound constraint and upper bound constraint of this query predicate on this column. Afterwards, we create and read this file by:
 
     numpy.save('data/sgtbdat/queries/user/test_query_sc.npy', arr_query)
     arr_query = numpy.load('data/sgtbdat/queries/user/test_query_sc.npy')
@@ -141,7 +141,7 @@ For query workload used for Single-Table CardEst, it should contains another thr
 
 **File 'data/sgtbdat/queries/user/test_true_sc.npy':**
 
-The content of this file is a 1-dimensonal numpy array 'arr_truecard'. The first value of the shape is equal to the number of queries in this workload, representing the true cardinality of each query. Afterwards, we create and read this file by:
+The content of this file is a 1-dimensional numpy array 'arr_truecard'. The first value of the shape is equal to the number of queries in this workload, representing the true cardinality of each query. Afterwards, we create and read this file by:
 
     numpy.save('data/sgtbdat/queries/user/test_true_sc.npy', arr_truecard)
     arr_truecard = numpy.load('data/sgtbdat/queries/user/test_true_sc.npy')
@@ -154,7 +154,7 @@ For a new multi-table dataset, supposing whose name is 'multbdat', we firstly cr
 
 ### Multi-Table Workload
 
-For a multi-table workload for dataset 'multbdat', suppoing whose name is 'userb', we prepare the csv file *'data/multbdat/queries/userb.csv'* in which each line represents a multi-table query. And a multi-table query contains four parts with delimiter '#'.
+For a multi-table workload for dataset 'multbdat', supposing whose name is 'userb', we prepare the csv file *'data/multbdat/queries/userb.csv'* in which each line represents a multi-table query. And a multi-table query contains four parts with delimiter '#'.
 
 The first part contains the names of all tables accessed by the query with delimiter ','. The second part contains all join predicates of the query with delimiter ',' where each join predicate is described as 'tableA.columnX=tableB.columnY'. The third part contains all range predicates of the query with delimiter ',' between each symbol such as 'tableA.columnI,=,100,tableB.columnJ,>,20,tableB.columnJ,<,50'. The four part is a number, the true cardinality of the query.
 
@@ -166,7 +166,7 @@ The workload train set and test set is not distinguished by specific file name. 
 
 **--dataset**: set the name of single-table dataset like '--dataset sgtbdat'
 
-#### QTree Mingle-table CardEst Parameter
+#### QTree Multi-table CardEst Parameter
 
 **--dataset**: set the name of multi-table dataset like '--dataset multbdat'
 
