@@ -1,29 +1,29 @@
-# QSPN_code
+# QTreeCode
 
-This is the code of our *QSPN/M-QSPN* model, corresponding to the paper: A Unified Model for Cardinality Estimation by Learning from Data and Queries via Sum-Product Networks. In this paper, we introduces *QSPN*, a unified model that integrates both data distribution and query workload. *QSPN* achieves high estimation ac- curacy by modeling data distribution using the simple yet effective Sum-Product Network (SPN) structure. To ensure low inference time and reduce storage overhead, *QSPN* further partitions columns based on query access patterns. We formalize *QSPN* as a tree-based structure that extends SPNs by introducing two new node types: QProduct and QSplit. This paper studies the research challenges of developing efficient algorithms for the offline construction and online computation of *QSPN*. We conduct extensive experiments to evaluate *QSPN* in both single-table and multi-table cardinality estimation settings. The experimental results have demonstrated that *QSPN* achieves superior and robust performance on the three key criteria, compared with state-of-the-art approaches.
+This is the code of our *QTree* model, corresponding to the paper: QTree: An Accurate and Efficient Cardinality Estimator by Learning from Data and Queries via Access Affinity. This paper introduces QTree, a tree-structured model integrating both data distribution and query workload via access affinity among columns. QTree achieves high estimation accuracy, low inference time and reduced storage overhead through two new node types: QProduct and QSplit, which enable further column partitioning based on access affinity from query access patterns. This paper studies the research challenges of developing efficient algorithms for the offline construction and online computation of QTree. And we also propose a novel join-free multi-table cardinality estimation method by extending QTree. We conduct extensive experiments to evaluate QTree on multiple single-table and multi-table datasets. The experimental results have demonstrated that QTree achieves superior and robust performance on the three key criteria, compared with state-of-the-art approaches.
 
 ## Configuration
 
 **Step 1:** Download this code and unzip it.
 
-**Step 2:** Install dependencies of the environment qspn.
+**Step 2:** Install dependencies of the environment QTree.
 
-    cd QSPN_code/
+    cd QTreeCode/
     conda install -f environment.yml
 
-**In the following, all running should be at this directory 'QSPN_code/'.**
+**In the following, all running should be at this directory 'QTreeCode/'.**
 
 **Step 3:** Downloading our experimental data.
 
-Download file **qspn_data_models.tar** from OneDrive sharing link: https://1drv.ms/u/c/f9c0a1a8c6911768/IQBf-quTIhx5S7WPpPzAeq1oAcU-jM1REgqdfJWdoWjvKHA?e=i1Zp6X and then decompress it:
+Download file **qtree_data_models.tar** from OneDrive sharing link: https://1drv.ms/u/c/f9c0a1a8c6911768/IQDUO3Nt66eQQ4pNhS9fwEy4ARIOA4Lg9m9A7YbpsSV0WQg and then decompress it:
 
-    tar -xf qspn_data_models.tar
+    tar -xf qtree_data_models.tar
 
-There will be two new directories in *'QSPN_code/'*: *'data/'* and *'models/'* which store datasets, workloads and models of our *QSPN/M-QSPN* experiment.
+There will be two new directories in *'QTreeCode/'*: *'data/'* and *'models/'* which store datasets, workloads and models of our *QTree/QTree* experiment.
 
 ## Quick Start
 
-### QSPN Single-Table CardEst
+### QTree Single-Table CardEst
 
 We first show the commands of conducting the experiments in our paper.
 
@@ -35,15 +35,15 @@ Dataset: GAS/Forest/Power
 
 The result will be outputed to the console, including Model Size, Mean Inference Time, Q-error of each query, 50th/90th/95th/99th/Max/Mean Q-error of CardEst on the workload.
 
-You can also construct *QSPN* models by yourself, like
+You can also construct *QTree* models by yourself, like
 
     python scripts/run_qspn.py --dataset gas --train
     python scripts/run_qspn.py --dataset forest10 --train
     python scripts/run_qspn.py --dataset power7 --train
 
-The Model Construction Time and Model Size will be outputed to the console. And the *QSPN* model file: *'models/single_tables/qspn/qspn_5.0_0.1_0.3_QSplit_\{gas/forest10/power7\}_template_0.5_0.5.pkl'* will be overwritten by the new constructed *QSPN* model.
+The Model Construction Time and Model Size will be outputed to the console. And the *QTree* model file: *'models/single_tables/qspn/qspn_5.0_0.1_0.3_QSplit_\{gas/forest10/power7\}_template_0.5_0.5.pkl'* will be overwritten by the new constructed *QTree* model.
 
-### QSPN Update CardEst
+### QTree Update CardEst
 
 Take dataset Forest for instance, we show how to run three update methods: *NoTrain*, *ReTrain* and our *AdaIncr*.
 
@@ -65,7 +65,7 @@ You can also change the dataset by change parameter '--dataset forest10' to '--d
 
 The result will be outputed to file *'qspn_update_expr.log'*, including workload executing time and Mean Q-error on each interval of the whole update workload (we set $10$ checkpoints).
 
-### M-QSPN Multi-Table CardEst
+### QTree Multi-Table CardEst
 
 Dataset: IMDB, Workload: JOB-light
 
@@ -77,7 +77,7 @@ Dataset: STATS, Workload: STATS-CEB
 
 The result will be outputed to the console, including Model Size, Mean Inference Time, Q-error of each query, 50th/90th/95th/99th/Max/Mean Q-error of CardEst on the workload.
 
-If you want construction a *M-QSPN* model by yourself, such as a model on STATS-CEB with *width* as $80000$, the command is
+If you want construction a *QTree* model by yourself, such as a model on STATS-CEB with *width* as $80000$, the command is
 
     python scripts/run_mqspn.py --dataset stats --workload-trainset stats_CEB_trainset --partition-width-limit 80000 --train
 
@@ -89,11 +89,11 @@ Also, if you want to test this model (with not default *size*: $80000$), the com
 
 ```sh
 |-- data # folder of datasets and workloads
-|-- models # folder of constructed QSPN & M-QSPN models
-|-- qspn # folder of QSPN & M-QSPN source code
+|-- models # folder of constructed QTree & QTree models
+|-- qspn # folder of QTree & QTree source code
 |-- scripts # folder of scripts to run CardEst
-    |-- run_qspn.py # Single-Table CardEst & Model Update by QSPN model
-    |-- run_mqspn.py # Multi-Table CardEst by M-QSPN model
+    |-- run_qspn.py # Single-Table CardEst & Model Update by QTree model
+    |-- run_mqspn.py # Multi-Table CardEst by QTree model
     |-- update_eval.py # (Please Do NOT Run) Source code for model update method, called by run_qspn.py
 |-- settings.py # (Please Do NOT Modify) Configuration of Paths
 ```
@@ -157,21 +157,15 @@ For a multi-table workload for dataset 'multbdat', suppoing whose name is 'userb
 
 The first part contains the names of all tables accessed by the query with delimiter ','. The second part contains all join predicates of the query with delimiter ',' where each join predicate is described as 'tableA.columnX=tableB.columnY'. The third part contains all range predicates of the query with delimiter ',' between each symbol such as 'tableA.columnI,=,100,tableB.columnJ,>,20,tableB.columnJ,<,50'. The four part is a number, the true cardinality of the query.
 
-The workload train set and test set is not distinguished by specific file name. For example, you can construct a *M-QSPN* model on workload 'userb' and test it on workload 'userc'.
+The workload train set and test set is not distinguished by specific file name. For example, you can construct a *QTree* model on workload 'userb' and test it on workload 'userc'.
 
 ### Running Parameter
 
-#### QSPN Paramter
+#### QTree Single-table CardEst Parameter
 
 **--dataset**: set the name of single-table dataset like '--dataset sgtbdat'
 
-**--query-path**: set the name of single-table workload like '--query-path user'
-
-**--Nx**, **--lower**, **--upper**: tune the parameters of adaptive RDC threshold of *QSPN* model and we recommends to keep the default setting '--Nx 5.0 --lower 0.1 --upper 0.3' which we think is OK for various datasets.
-
-If you want to construct a *QSPN* model, add a switch parameter **--train**, the model file will be dumped to the file like *'models/single_tables/qspn/qspn_5.0_0.1_0.3_QSplit_sgtbdat_user.pkl'*. Correspondingly, if you want to test this constructed model, add a switch parameter **--inference**. And if you want to test the *QSPN* Update Method by constructing model on workload 'user1' and testing model on workload 'user2', you should also set parameter **--update-query-path** like '--query-path user1 --update-query-path user2' and **--update-method** like '--update-method adaincr' with a switch parameter **--update**.
-
-#### M-QSPN Parater
+#### QTree Mingle-table CardEst Parameter
 
 **--dataset**: set the name of multi-table dataset like '--dataset multbdat'
 
@@ -179,9 +173,9 @@ If you want to construct a *QSPN* model, add a switch parameter **--train**, the
 
 **--workload-testset**: set the name of multi-table workload test set like '--workload-testset userc'
 
-**--partition-width-limit**: tune the join key binning size limit of *M-QSPN* model binning like '--partition-width-limit 60000'. A smaller setting usually improves the CardEst accuracy of *M-QSPN* model with longer inference time.
+**--partition-width-limit**: tune the join key binning size limit of *QTree* model binning like '--partition-width-limit 60000'. A smaller setting usually improves the CardEst accuracy of *QTree* model with longer inference time.
 
-If you want to construct a *M-QSPN* model, add a switch parameter **--train**, the model file will be dumped to the file like *'models/multi_tables/mqspn/mqspn_multbdat_userb_200.pkl'*. Correspondingly, if you want to test this constructed model, add a switch parameter **--inference**. Note that our code actually shows that we do not use workload test set for model construction and we only use the name of workload train set to locate the path of model file for model test though 'scripts/run_mqspn.py' always needs setting both '--workload-trainset' and '--workload-testset'.
+If you want to construct a *QTree* Multi-table CardEst model, add a switch parameter **--train**, the model file will be dumped to the file like *'models/multi_tables/mqspn/mqspn_multbdat_userb_200.pkl'*. Correspondingly, if you want to test this constructed model, add a switch parameter **--inference**. Note that our code actually shows that we do not use workload test set for model construction and we only use the name of workload train set to locate the path of model file for model test though 'scripts/run_mqspn.py' always needs setting both '--workload-trainset' and '--workload-testset'.
 
 <!-- ## Acknowledgement
 
