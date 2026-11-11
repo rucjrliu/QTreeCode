@@ -19,7 +19,7 @@ Download file **qtree_data_models.tar** from OneDrive sharing link: https://1drv
 
     tar -xf qtree_data_models.tar
 
-There will be two new directories in *'QTreeCode/'*: *'data/'* and *'models/'* which store datasets, workloads and models of our *QTree/QTree* experiment.
+There will be two new directories in *'QTreeCode/'*: *'data/'* and *'models/'* which store datasets, workloads and models of our *QTree* Single-table cardinality estimation (CardEst) and Multi-table CardEst experiments.
 
 ## Quick Start
 
