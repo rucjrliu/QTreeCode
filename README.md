@@ -64,7 +64,7 @@ If you want to test update method *AdaIncr* on Query-Update-Only workload, the c
 
 You can also change the dataset by change parameter '--dataset forest10' to '--dataset gas/power7' and so on.
 
-The result will be outputed to file *'qspn_update_expr.log'*, including workload executing time and Mean Q-error on each interval of the whole update workload (we set $10$ checkpoints).
+The result will be output to file *'qspn_update_expr.log'*, including workload executing time and Mean Q-error on each interval of the whole update workload (we set $10$ checkpoints).
 
 ### QTree Multi-Table CardEst
 
@@ -76,7 +76,7 @@ Dataset: STATS, Workload: STATS-CEB
 
     python scripts/run_mqspn.py --dataset stats --workload-trainset stats_CEB_trainset --workload-testset stats_CEB_testset --inference
 
-The result will be outputed to the console, including Model Size, Mean Inference Time, Q-error of each query, 50th/90th/95th/99th/Max/Mean Q-error of CardEst on the workload.
+The result will be output to the console, including Model Size, Mean Inference Time, Q-error of each query, 50th/90th/95th/99th/Max/Mean Q-error of CardEst on the workload.
 
 If you want construction a *QTree* model by yourself, such as a model on STATS-CEB with *width* as $80000$, the command is
 
