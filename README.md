@@ -89,8 +89,8 @@ Also, if you want to test this model (with not default *size*: $80000$), the com
 
 ```sh
 |-- data # folder of datasets and workloads
-|-- models # folder of constructed QTree & QTree models
-|-- qspn # folder of QTree & QTree source code
+|-- models # folder of constructed QTree models
+|-- qspn # folder of QTree source code
 |-- scripts # folder of scripts to run CardEst
     |-- run_qspn.py # Single-Table CardEst & Model Update by QTree model
     |-- run_mqspn.py # Multi-Table CardEst by QTree model
