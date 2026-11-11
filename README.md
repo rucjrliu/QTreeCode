@@ -9,7 +9,8 @@ This is the code of our *QTree* model, corresponding to the paper: QTree: An Acc
 **Step 2:** Install dependencies of the environment QTree.
 
     cd QTreeCode/
-    conda install -f environment.yml
+    conda env create -f environment.yml
+    conda activate qspn
 
 **In the following, all running should be at this directory 'QTreeCode/'.**
 
@@ -55,11 +56,11 @@ where '--skew 0.0' and '--corr 0.0' means using the model constructed on the ori
 
 If you want to test update method *AdaIncr* on Data-Update-Only workload, the command is
 
-    python scripts/run_qspn.py --dataset forest10 --skew 0.0 --corr 0.0 --update-method adaincr --update-query-root update --update-skew 0.0 --update-corr 0.0
+    python scripts/run_qspn.py --dataset forest10 --skew 0.0 --corr 0.0 --update-method adaincr --update-query-root update --update-skew 0.0 --update-corr 0.0 --update
 
 If you want to test update method *AdaIncr* on Query-Update-Only workload, the command is
 
-    python scripts/run_qspn.py --dataset forest10 --skew 0.0 --corr 0.0 --update-method adaincr --update-query-root template --update-skew 0.5 --update-corr 0.5
+    python scripts/run_qspn.py --dataset forest10 --skew 0.0 --corr 0.0 --update-method adaincr --update-query-root template --update-skew 0.5 --update-corr 0.5 --update
 
 You can also change the dataset by change parameter '--dataset forest10' to '--dataset gas/power7' and so on.
 
@@ -132,7 +133,7 @@ For a new single-table workload for dataset 'sgtbdat', supposing whose name is '
 The content of this file is a 3-dimensonal numpy array 'arr_query'. The first value of the shape is equal to the number of queries in this workload, representing each query. The second value of the shape is equal the number of data columns, represent query predicate on each column. The third value of the shape is $2$, representing the lower bound constraint and upper bound constraint of this query predicate on this column. Afterwards, we create and read this file by:
 
     numpy.save('data/sgtbdat/queries/user/test_query_sc.npy', arr_query)
-    numpy.load('data/sgtbdat/queries/user/test_query_sc.npy', arr_query)
+    arr_query = numpy.load('data/sgtbdat/queries/user/test_query_sc.npy')
 
 If this query workload is only used as update workload, only this one file is enough. But please note that if the $q$-th (staring from $0$) query is a data update operation (INSERT sentence), the 'arr_query[q, :, 1]' must be all $-1$ and the 'arr_query[q, :, 0]' represents the inserted data tuple. This is how we distinguish between data update operation and query.
 
@@ -143,7 +144,7 @@ For query workload used for Single-Table CardEst, it should contains another thr
 The content of this file is a 1-dimensonal numpy array 'arr_truecard'. The first value of the shape is equal to the number of queries in this workload, representing the true cardinality of each query. Afterwards, we create and read this file by:
 
     numpy.save('data/sgtbdat/queries/user/test_true_sc.npy', arr_truecard)
-    numpy.load('data/sgtbdat/queries/user/test_true_sc.npy', arr_truecard)
+    arr_truecard = numpy.load('data/sgtbdat/queries/user/test_true_sc.npy')
 
 Another two numpy files *'data/sgtbdat/queries/user/train_query_sc.npy'* and *'data/sgtbdat/queries/user/train_true_sc.npy'* shares the same format with *'data/sgtbdat/queries/user/test_query_sc.npy'* and *'data/sgtbdat/queries/user/test_true_sc.npy' respectively.
 
